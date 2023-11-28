@@ -26,11 +26,6 @@ module.exports = {
         spotId: 3,
         url: "https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg",
         preview: true
-      },
-      {
-        spotId: 4,
-        url: "https://www.collegetransitions.com/wp-content/uploads/2022/05/ucsb-1-e1652888795673.png",
-        preview: false
       }
     ], { validate: true });
   },
@@ -39,7 +34,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3, 4] }
+      spotId: { [Op.in]: [1, 2, 3] }
     }, {});
   }
 };
