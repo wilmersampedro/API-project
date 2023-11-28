@@ -1,6 +1,6 @@
 'use strict';
 
-const { Spot, User } = require('../models')
+const { Spot } = require('../models')
 /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
