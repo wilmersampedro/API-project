@@ -46,6 +46,18 @@ module.exports = {
         name: "UCLA",
         description: "Bruin Nation",
         price: 777
+      },
+      {
+        ownerId: 4,
+        address: "516 Ocean Rd",
+        city: "Santa Barbara",
+        state: "California",
+        country: "United States of America",
+        lat: 34.4182524,
+        lng: -119.8489718,
+        name: "UCSB",
+        description: "Place where gauchos live",
+        price: 999
       }
     ], { validate: true });
   },
@@ -55,7 +67,7 @@ module.exports = {
     const Op = Sequelize.Op;
 
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['App Academy', 'Academy App', 'UCLA']}
+      name: { [Op.in]: ['App Academy', 'Academy App', 'UCLA', 'UCSB']}
     }, {});
   }
 };

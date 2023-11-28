@@ -21,6 +21,10 @@ module.exports = {
       {
         reviewId: 3,
         url: "https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg"
+      },
+      {
+        reviewId: 4,
+        url: "https://www.collegetransitions.com/wp-content/uploads/2022/05/ucsb-1-e1652888795673.png"
       }
     ], { validate: true });
   },
@@ -29,7 +33,7 @@ module.exports = {
     options.tableName = 'ReviewImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      reviewId: { [Op.in]: [1, 2, 3] }
+      reviewId: { [Op.in]: [1, 2, 3, 4] }
     }, {});
   }
 };
