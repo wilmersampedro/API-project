@@ -12,25 +12,25 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Review.bulkCreate([
       {
-        spotId: 7,
+        spotId: 1,
         userId: 4,
         review: 'It was okay',
         stars: 3
       },
       {
-        spotId: 8,
+        spotId: 2,
         userId: 3,
         review: 'pleasant stay',
         stars: 4
       },
       {
-        spotId: 9,
+        spotId: 3,
         userId: 2,
         review: 'Amazing place to be!',
         stars: 5
       },
       {
-        spotId: 10,
+        spotId: 4,
         userId: 1,
         review: 'Love going here when I can',
         stars: 5
@@ -42,7 +42,7 @@ module.exports = {
     options.tableName = 'Reviews';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [7, 8, 9, 10] }
+      spotId: { [Op.in]: [1, 2, 3, 4] }
     }, {});
   }
 };
