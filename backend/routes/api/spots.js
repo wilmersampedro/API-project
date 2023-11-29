@@ -276,8 +276,16 @@ router.get('/', async (req, res, next) => {
     })
 
     spot = spot.toJSON();
-    spot.avgRating = avgRating;
-    if (previewImage) spot.previewImage = previewImage.url
+    if (avgRating) {
+      spot.avgRating = avgRating;
+    } else {
+      spot.avgRating = "no ratings yet"
+    }
+    if (previewImage) {
+      spot.previewImage = previewImage.url
+    } else {
+      spot.previewImage = "no preview image"
+    }
     resArr.push(spot);
   }
 
