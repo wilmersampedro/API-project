@@ -1,4 +1,6 @@
 const { validationResult } = require('express-validator');
+const { check } = require('express-validator');
+
 
 // middleware for formatting errors from express-validator middleware
 // (to customize, see express-validator's documentation)
@@ -20,6 +22,17 @@ const handleValidationErrors = (req, _res, next) => {
   next();
 };
 
-module.exports = {
+const validateReview = [
+  check('review')
+    .notEmpty()
+    .withMessage("Review text is required"),
+  check('stars')
+    .isInt({min: 1, max: 5})
+    .withMessage("Stars must be an integer from 1 to 5"),
   handleValidationErrors
+];
+
+module.exports = {
+  handleValidationErrors,
+  validateReview
 };

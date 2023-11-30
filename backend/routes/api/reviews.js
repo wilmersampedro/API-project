@@ -1,19 +1,9 @@
 const express = require('express');
 const { Review, User, Spot, ReviewImage, SpotImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation')
-const router = express.Router();
 
-const validateReview = [
-  check('review')
-    .notEmpty()
-    .withMessage("Review text is required"),
-  check('stars')
-    .isInt({min: 1, max: 5})
-    .withMessage("Stars must be an integer from 1 to 5"),
-  handleValidationErrors
-];
+const { validateReview } = require('../../utils/validation')
+const router = express.Router();
 
 
 //Add an Image to a Review based on the Review's id
@@ -111,28 +101,59 @@ router.get('/current', requireAuth, async (req, res, next) => {
 router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
   const { reviewId } = req.params;
   const { id } = req.user;
+  const { review, stars } = req.body;
 
-  const review = await Review.findByPk(reviewId);
+  const reviewToEdit = await Review.findByPk(reviewId);
 
-  if(!review) {
+  if(!reviewToEdit) {
     res.status(404);
     return res.json({
       message: "Review couldn't be found"
     })
   }
 
-  if (review.userId !== id) {
+  if (reviewToEdit.userId !== id) {
     res.status(403);
     return res.json({
       message: "Forbidden"
     })
   }
 
+  reviewToEdit.review = review;
+  reviewToEdit.stars = stars;
+  await reviewToEdit.save();
+
+  res.json(reviewToEdit)
+
 })
 
 
+//Delete a Review
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
+  const { reviewId } = req.params;
+  const { id } = req.user;
 
+  const reviewToDestroy = await Review.findByPk(reviewId);
 
+  if(!reviewToDestroy) {
+    res.status(404);
+    return res.json({
+      message: "Review couldn't be found"
+    })
+  }
+
+  if(reviewToDestroy.userId !== id) {
+    res.status(403);
+    return res.json({
+      message: "Forbidden"
+    })
+  }
+
+  await reviewToDestroy.destroy();
+  return res.json({
+    message: "Successfully deleted"
+  })
+})
 
 
 

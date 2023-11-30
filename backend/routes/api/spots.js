@@ -2,7 +2,7 @@ const express = require('express');
 const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation')
+const { handleValidationErrors, validateReview } = require('../../utils/validation')
 const { Op } = require('sequelize');
 const router = express.Router();
 
@@ -44,17 +44,6 @@ const validateSpot = [
     .isFloat({min: 1})
     // .notEmpty()
     .withMessage("Price per day is required"),
-  handleValidationErrors
-];
-
-
-const validateReview = [
-  check('review')
-    .notEmpty()
-    .withMessage("Review text is required"),
-  check('stars')
-    .isInt({min: 1, max: 5})
-    .withMessage("Stars must be an integer from 1 to 5"),
   handleValidationErrors
 ];
 
