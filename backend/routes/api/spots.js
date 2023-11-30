@@ -1,8 +1,9 @@
 const express = require('express');
-const { Spot, User, SpotImage, Review } = require('../../db/models');
+const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation')
+const { Op } = require('sequelize');
 const router = express.Router();
 
 const validateSpot = [
@@ -46,6 +47,17 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+
+const validateReview = [
+  check('review')
+    .notEmpty()
+    .withMessage("Review text is required"),
+  check('stars')
+    .isInt({min: 1, max: 5})
+    .withMessage("Stars must be an integer from 1 to 5"),
+  handleValidationErrors
+];
+
 //Add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   const { spotId } = req.params;
@@ -79,6 +91,79 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     url,
     preview
   })
+})
+
+//Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', async (req, res, next) => {
+  const { spotId } = req.params;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if(!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  const reviews = await Review.findAll({
+    where: {
+      spotId
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'firstName', 'lastName']
+      },
+      {
+        model: ReviewImage,
+        attributes: ['id', 'url']
+      }
+    ]
+  })
+
+  res.json({Reviews: reviews})
+})
+
+//Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+  const { spotId } = req.params;
+  const { review, stars } = req.body;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if (!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  const potenshReview = await Review.findOne({
+    where: {
+      [Op.and]: [
+        {userId: req.user.id},
+        {spotId: spotId}
+      ]
+    }
+  })
+
+  if(potenshReview) {
+    res.status(500);
+    return res.json({
+      message: "User already has a review for this spot"
+    })
+  }
+
+  const newReview = await spot.createReview({
+    userId: req.user.id,
+    spotId: spot.id,
+    review,
+    stars
+  })
+
+  res.status(201);
+  return res.json(newReview)
 })
 
 //Get all Spots owned by the Current User
