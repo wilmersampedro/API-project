@@ -104,8 +104,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
   }
 
-measuredStartDate = Date.parse(startDate);
-measuredEndDate = Date.parse(endDate);
+let measuredStartDate = Date.parse(startDate);
+let measuredEndDate = Date.parse(endDate);
 
 if (measuredStartDate >= measuredEndDate) {
   res.status(400);
@@ -173,8 +173,6 @@ for (let i = 0; i < currBookings.length; i++) {
 
 }
 
-// startDate = new Date(startDate)
-// endDate = new Date(endDate)
 
   const newBooking = await spot.createBooking({
     spotId,
