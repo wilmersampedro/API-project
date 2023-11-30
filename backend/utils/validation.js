@@ -32,6 +32,13 @@ const validateReview = [
   handleValidationErrors
 ];
 
+// const validateBooking = [
+//   check('endDate')
+//     .custom(value => {
+
+//     })
+// ]
+
 module.exports = {
   handleValidationErrors,
   validateReview

@@ -1,5 +1,5 @@
 const express = require('express');
-const { Spot, User, SpotImage, Review, ReviewImage } = require('../../db/models');
+const { Spot, User, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors, validateReview } = require('../../utils/validation')
@@ -80,6 +80,153 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     url,
     preview
   })
+})
+
+//Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+  const { spotId } = req.params;
+  const { id } = req.user;
+  let { startDate, endDate } = req.body;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if(!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  if(spot.ownerId === id) {
+    res.status(403);
+    return res.json({
+      message: "Forbidden"
+    })
+  }
+
+measuredStartDate = Date.parse(startDate);
+measuredEndDate = Date.parse(endDate);
+
+if (measuredStartDate >= measuredEndDate) {
+  res.status(400);
+  return res.json({
+    message: "Bad Request",
+    errors: {
+      endDate: "endDate cannot be on or before startDate"
+    }
+  })
+}
+
+const currBookings = await Booking.findAll({
+  where: {
+    spotId
+  }
+})
+
+for (let i = 0; i < currBookings.length; i++) {
+  let currBooking = currBookings[i];
+  existingStartDate = Date.parse(currBooking.startDate)
+  existingEndDate = Date.parse(currBooking.endDate)
+
+  if(measuredStartDate <= existingEndDate && measuredStartDate >= existingStartDate && measuredEndDate >= existingStartDate && measuredEndDate <= existingEndDate) {
+    res.status(403);
+    return res.json({
+      message: "Sorry, this spot is already booked for the specified dates",
+      errors: {
+        startDate: "Start date conflicts with an existing booking",
+        endDate: "End date conflicts with an existing booking"
+      }
+    })
+  }
+
+  if(measuredStartDate <= existingEndDate && measuredStartDate >= existingStartDate) {
+    res.status(403);
+    return res.json({
+      message: "Sorry, this spot is already booked for the specified dates",
+      errors: {
+        startDate: "Start date conflicts with an existing booking"
+      }
+    })
+  }
+
+  if (measuredEndDate >= existingStartDate && measuredEndDate <= existingEndDate) {
+    res.status(403);
+    return res.json({
+      message: "Sorry, this spot is already booked for the specified dates",
+      errors: {
+        endDate: "End date conflicts with an existing booking"
+      }
+    })
+  }
+
+  if(measuredStartDate <= existingStartDate && measuredEndDate >= existingEndDate) {
+    res.status(403);
+    return res.json({
+      message: "Sorry, this spot is already booked for the specific dates",
+      errors: {
+        startDate: "Start date conflicts with an existing booking",
+        endDate: "End date conflicts with an existing booking"
+      }
+    })
+  }
+
+
+}
+
+// startDate = new Date(startDate)
+// endDate = new Date(endDate)
+
+  const newBooking = await spot.createBooking({
+    spotId,
+    userId: id,
+    startDate,
+    endDate
+  })
+
+  return res.json(newBooking)
+
+})
+
+
+//Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+  const { spotId } = req.params;
+  const { id } = req.user;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if (!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+
+  if (spot.ownerId !== id) { //NOT the owner
+    const bookings = await Booking.findAll({
+      where: {
+        spotId
+      },
+      attributes: {
+        exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+      }
+    })
+  return res.json({Bookings: bookings})
+  } else {
+    const bookings = await Booking.findAll({ //ARE the owner
+      where: {
+        spotId
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'firstName', 'lastName']
+        }
+      ]
+    })
+    return res.json({Bookings: bookings})
+  }
 })
 
 //Get all Reviews by a Spot's id
