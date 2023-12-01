@@ -2,7 +2,7 @@ const express = require('express');
 const { Spot, User, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
-const { handleValidationErrors, validateReview } = require('../../utils/validation')
+const { handleValidationErrors, validateReview, validateQueryParams } = require('../../utils/validation')
 const { Op } = require('sequelize');
 const router = express.Router();
 
@@ -470,7 +470,79 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 
 //get all spots
 router.get('/', async (req, res, next) => {
-  const spots = await Spot.findAll()
+  let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+  const errors = validateQueryParams(req.query)
+
+  if(Object.keys(errors).length) {
+    res.status(400);
+    const err = new Error();
+    err.message = "Bad Request"
+    err.errors = errors;
+    return res.json(err)
+  }
+
+
+  page = parseInt(page);
+  size = parseInt(size);
+
+  if (Number.isNaN(page) || page <= 0 || !page) page = 1;
+  if (Number.isNaN(size) || size <= 0 || !size) size = 20;
+  if (page > 10) page = 10;
+  if (size > 20) size = 20;
+
+  const where = {};
+//latitudes
+//yes max lat no min lat
+  if(maxLat && !minLat) {
+    where.lat = {[Op.lte]: maxLat};
+  }
+//yes min lat no max lat
+  if(minLat && !maxLat) {
+    where.lat = {[Op.gte]: minLat};
+  }
+//both LAT exist
+  if(minLat && maxLat) {
+    where.lat = {[Op.between]: [minLat, maxLat]}
+  }
+//longitudes
+//min lng and no max lng
+  if(minLng && !maxLng) {
+    where.lng = {[Op.gte]: minLng};
+  }
+//max lng and no min lng
+  if(maxLng && !minLng) {
+    where.lng = {[Op.lte]: maxLng};
+  }
+//both LNG exist
+  if(minLng && maxLng) {
+    where.lat = {[Op.between]: [minLat, maxLat]}
+  }
+
+//PRICES
+// yes min price and no max price
+  if(minPrice && !maxPrice) {
+    where.minPrice = minPrice;
+  }
+// yes max price and no min price
+  if(maxPrice && !minPrice) {
+    where.maxPrice = maxPrice;
+  }
+// both min and max price exist
+  if(minPrice && maxPrice) {
+    where.price = {[Op.between]: [minPrice, maxPrice]}
+  }
+  
+  // if(Object.keys(where).length) {
+
+  // }
+
+  const spots = await Spot.findAll({
+    where,
+    limit: size,
+    offset: size * (page - 1)
+  })
+
   const resArr = [];
 
   for(let i = 0; i < spots.length; i++) {
@@ -490,7 +562,10 @@ router.get('/', async (req, res, next) => {
     //preview images
     const previewImage = await SpotImage.findOne({
       where: {
-        spotId: spot.id
+        [Op.and]: [
+          {spotId: spot.id},
+          {preview: true}
+        ]
       }
     })
 
@@ -510,7 +585,7 @@ router.get('/', async (req, res, next) => {
 
 
 
-  res.json({Spots: resArr});
+  return res.json({Spots: resArr, page, size});
 })
 
 
