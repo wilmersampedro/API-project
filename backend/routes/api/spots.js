@@ -336,7 +336,12 @@ for (let i = 0; i < spots.length; i++) {
 
   spot = spot.toJSON();
   spot.avgRating = avgRating;
-  spot.previewImage = previewImage.url;
+  if(previewImage) {
+    spot.previewImage = previewImage.url;
+  } else {
+    spot.previewImage = "no preview image available"
+  }
+  
   resArr.push(spot);
 }
 
@@ -532,7 +537,7 @@ router.get('/', async (req, res, next) => {
   if(minPrice && maxPrice) {
     where.price = {[Op.between]: [minPrice, maxPrice]}
   }
-  
+
   // if(Object.keys(where).length) {
 
   // }
