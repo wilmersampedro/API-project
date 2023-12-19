@@ -45,6 +45,7 @@ export const thunkGetOneSpot = (spotId) => async (dispatch) => {
   if (response.ok) {
     const spot = await response.json()
     dispatch(actionGetOneSpot(spot))
+    return spot
   } else {
     const error = await response.json()
     return error
@@ -64,7 +65,11 @@ export default function spotsReducer(state = {}, action) {
       return allSpots
     }
     case GET_ONE_SPOT: {
-      
+      const newState = {};
+      newState[action.spot.id]= action.spot
+      console.log("🚀 ~ file: spots.js:70 ~ spotsReducer ~ newState:", newState)
+
+      return newState
     }
     default:
       return state;
