@@ -9,10 +9,10 @@ const actionGetAllSpots = (spots) => {
   }
 }
 
-const actionGetOneSpot = (spotId) => {
+const actionGetOneSpot = (spot) => {
   return {
     type: GET_ONE_SPOT,
-    spotId
+    spot
   }
 }
 //thunks
@@ -64,7 +64,7 @@ export default function spotsReducer(state = {}, action) {
       return allSpots
     }
     case GET_ONE_SPOT: {
-
+      
     }
     default:
       return state;
