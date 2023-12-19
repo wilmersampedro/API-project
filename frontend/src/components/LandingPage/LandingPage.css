@@ -1,0 +1,28 @@
+* {
+  font-family: sans-serif;
+  /* margin: 0; */
+}
+
+#tilesContainer {
+  display: flex;
+  /* gap: 20px; */
+  justify-content:space-evenly;
+  flex-wrap: wrap;
+  border-top: 2px solid lightgray;
+  padding-top: 20px;
+}
+
+.spotTile:hover {
+  cursor: pointer;
+}
+
+.tileImage {
+  height: 400px;
+  width: 400px;
+}
+
+.location-container {
+  display: flex;
+  justify-content: space-between;
+
+}

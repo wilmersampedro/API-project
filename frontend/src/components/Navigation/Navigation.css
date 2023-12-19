@@ -1,3 +1,20 @@
 .hidden{
   display: none;
 }
+
+#navbar{
+  display: flex;
+  /* flex-direction: row-reverse; */
+  justify-content: space-between;
+  margin: 20px 40px;
+  /* border-bottom: 1px solid lightgray;
+  padding-bottom: 20px; */
+}
+
+#navbar > li {
+  list-style-type: none;
+}
+
+#profileButton {
+  margin-right: 30px;
+}

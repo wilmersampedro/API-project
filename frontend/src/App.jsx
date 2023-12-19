@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import * as sessionActions from './store/session';
 
+import LandingPage from './components/LandingPage/LandingPage';
+import SpotDetail from './components/SpotDetail/SpotDetail';
+
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,7 +34,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <>
+                 {/* <h1>Welcome!</h1> */}
+                 < LandingPage />
+                 </>
+
+      },
+      {
+        path: '/spots/:spotId',
+        element: <SpotDetail />
       }
     ]
   }
