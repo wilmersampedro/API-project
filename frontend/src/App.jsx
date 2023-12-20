@@ -9,7 +9,7 @@ import * as sessionActions from './store/session';
 
 import LandingPage from './components/LandingPage/LandingPage';
 import SpotDetail from './components/SpotDetail/SpotDetail';
-import Reviews from './components/Reviews/Reviews';
+
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: '/spots/:spotId',
         element: <SpotDetail />
-      },
-      {
-        path: '/test',
-        element: < Reviews />
       }
     ]
   }
