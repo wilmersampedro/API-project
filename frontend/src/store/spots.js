@@ -67,7 +67,7 @@ export default function spotsReducer(state = {}, action) {
     case GET_ONE_SPOT: {
       const newState = {};
       newState[action.spot.id]= action.spot
-      console.log("🚀 ~ file: spots.js:70 ~ spotsReducer ~ newState:", newState)
+      
 
       return newState
     }

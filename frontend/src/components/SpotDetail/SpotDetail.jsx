@@ -53,7 +53,7 @@ const SpotDetail = () => {
         <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i> {spot.numReviews} {spot.numReviews > 1 ? 'Reviews' : 'Review'}</h2>
         </div>
         <div>
-          <Reviews />
+          <Reviews spotId={spotId}/>
         </div>
       </section>
     </div>
