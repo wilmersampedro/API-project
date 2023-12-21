@@ -18,3 +18,18 @@
 #profileButton {
   margin-right: 30px;
 }
+
+#right-side-nav {
+  display: flex;
+  gap: 30px;
+  list-style-type: none;
+}
+
+#create-a-spot-li {
+  align-self: flex-end;
+
+}
+
+#createSpotLink {
+  text-decoration: none;
+}

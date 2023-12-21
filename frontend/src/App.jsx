@@ -9,7 +9,7 @@ import * as sessionActions from './store/session';
 
 import LandingPage from './components/LandingPage/LandingPage';
 import SpotDetail from './components/SpotDetail/SpotDetail';
-
+import CreateNewSpot from './components/CreateNewSpot/CreateNewSpot';
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: '/spots/:spotId',
         element: <SpotDetail />
+      },
+      {
+        path: '/spots/new',
+        element: <CreateNewSpot />
       }
     ]
   }
