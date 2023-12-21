@@ -1,6 +1,6 @@
-import { thunkCreateSpot, thunkAddImageToSpot } from "../../store/spots"
+import { thunkCreateSpot, thunkAddImageToSpot, thunkAddNewSpotToStore } from "../../store/spots"
 import { useDispatch } from "react-redux"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './CreateNewSpotForm.css'
 
@@ -20,11 +20,13 @@ const [image2, setImage2] = useState('');
 const [image3, setImage3] = useState('');
 const [image4, setImage4] = useState('');
 const [image5, setImage5] = useState('');
+const [submitted, setSubmitted] = useState(false)
 const imagesArr = [];
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  setErrors({});
+  setSubmitted(true)
+  // setErrors({});
   const spot = {
     address,
     city,
@@ -41,7 +43,7 @@ const handleSubmit = async (e) => {
   console.log("IN THE NEWSPOT COMP", newSpot)
   console.log("ERROR OBJ IN COMP", newSpot.errors)
   if(newSpot.errors) {
-    setErrors(newSpot.errors)
+    setErrors({...newSpot.errors, ...errors})
     console.log("ERROR IN COMPONENT", errors)
   } else {
     if (image1) imagesArr.push(image1)
@@ -52,11 +54,42 @@ const handleSubmit = async (e) => {
 
     console.log("IMAGES ARR", imagesArr)
     console.log(newSpot)
-    dispatch(thunkAddImageToSpot(newSpot.id, imagesArr))
-    // dispatch(newSpot.id, url)
-    // navigate('/')
+
+    const newImg = dispatch(thunkAddImageToSpot(newSpot.id, imagesArr))
+
+    const validNewSpot = {
+      ...newSpot,
+      newImg
+    }
+
+    dispatch(thunkAddNewSpotToStore(validNewSpot));
+
+    setCountry('')
+    setAddress('')
+    setCity('')
+    setState('')
+    setDescription('')
+    setName('')
+    setPrice('')
+    setImage1('')
+    setImage2('')
+    setImage3('')
+    setImage4('')
+    setImage5('')
+
+    navigate(`/spots/${validNewSpot.id}`)
   }
 }
+
+useEffect(() => {
+  const validationErrors = {}
+
+  if(description.length < 30) validationErrors.description = "Description needs a minimum of 30 characters"
+
+  if(submitted && !image1) validationErrors.image1 = "Preview Image is required"
+
+  setErrors(validationErrors)
+},[image1])
 
 return (
   <div id="create-spot-container">
@@ -126,6 +159,7 @@ return (
       placeholder="Please write at least 30 characters"
       onChange={(e) => setDescription(e.target.value)}
       />
+      {submitted && <span style={{color: "red"}}>{errors.description}</span>}
     </label>
     <label className="create-border-bottom">
       <h2>Create a title for your spot</h2>
@@ -137,6 +171,7 @@ return (
       placeholder="Name of your spot"
       onChange={(e) => setName(e.target.value)}
       />
+      {"name" in errors && <span style={{color: "red"}}>{errors.name}</span>}
     </label>
     <label className="create-border-bottom">
       <h2>Set a base price for your spot</h2>
@@ -151,6 +186,7 @@ return (
       placeholder="Price per night (USD)"
       onChange={(e) => setPrice(e.target.value)}
       />
+      {"price" in errors && <span style={{color: "red"}}>{errors.price}</span>}
     </label>
     <label className="create-border-bottom" id="photo-inputs">
       <h2 id="photo-header-form">Liven up your spot with photos</h2>
@@ -161,6 +197,7 @@ return (
         value={image1}
         onChange={(e) => setImage1(e.target.value)}
       />
+      {"image1" in errors && <span style={{color: "red"}}>{errors.image1}</span>}
       <input
       className="image-url-input"
       placeholder="Image URL"
