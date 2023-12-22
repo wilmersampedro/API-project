@@ -10,13 +10,13 @@ import PostReviewModal from "../PostReviewModal/PostReviewModal";
 const SpotDetail = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
-  const [dispatched, setDispatched] = useState(false);
+  const [rendered, setRendered] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
   const reviews = useSelector(state => state.reviews);
 
   useEffect(() => {
     dispatch(thunkGetOneSpot(spotId))
-  }, [dispatch, spotId, reviews, dispatched])
+  }, [dispatch, spotId, reviews, rendered])
 
   const spot = useSelector(state => state.spots[spotId]);
   if(!spot || !spot.SpotImages) return null;
@@ -61,10 +61,10 @@ const SpotDetail = () => {
         </div>
           {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
             buttonText="Post Your Review"
-            modalComponent={<PostReviewModal spotId={spotId} setDispatched={setDispatched}/>}
+            modalComponent={<PostReviewModal spotId={spotId} setRendered={setRendered}/>}
           />}
         <div>
-          <Reviews spotId={spotId} dispatched={dispatched}/>
+          <Reviews spotId={spotId} rendered={rendered}/>
         </div>
       </section>
     </div>

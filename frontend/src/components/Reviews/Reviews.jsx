@@ -2,15 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { thunkGetReviewsBySpotId } from "../../store/reviews";
 import { useEffect } from "react";
 
-const Reviews = ({spotId, dispatched}) => {
+const Reviews = ({spotId, rendered}) => {
   const dispatch = useDispatch();
   const reviewsObj = useSelector(state => state.reviews)
   const reviewsArr = Object.values(reviewsObj);
-  
+
   console.log(reviewsArr)
   useEffect(() => {
     dispatch(thunkGetReviewsBySpotId(spotId))
-  }, [dispatch, spotId, dispatched]);
+  }, [dispatch, spotId, rendered]);
 
   if(!reviewsObj) return null
 
