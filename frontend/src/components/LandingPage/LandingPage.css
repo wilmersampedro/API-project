@@ -5,11 +5,12 @@
 
 #tilesContainer {
   display: flex;
-  /* gap: 20px; */
+  gap: 10px;
   justify-content:space-evenly;
   flex-wrap: wrap;
   border-top: 2px solid lightgray;
   padding-top: 20px;
+  width: 95%;
 }
 
 .spotTile:hover {
@@ -19,6 +20,7 @@
 .tileImage {
   height: 400px;
   width: 400px;
+  border-radius: 5px;
 }
 
 .location-container {
