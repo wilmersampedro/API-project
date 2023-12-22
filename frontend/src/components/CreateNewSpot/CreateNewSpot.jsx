@@ -89,7 +89,7 @@ useEffect(() => {
   if(submitted && !image1) validationErrors.image1 = "Preview Image is required"
 
   setErrors(validationErrors)
-},[image1])
+},[image1, description.length, submitted])
 
 return (
   <div id="create-spot-container">
