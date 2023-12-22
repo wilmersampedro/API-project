@@ -2,16 +2,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { thunkGetReviewsBySpotId } from "../../store/reviews";
 import { useEffect } from "react";
 
-const Reviews = ({spotId}) => {
+const Reviews = ({spotId, dispatched}) => {
   const dispatch = useDispatch();
   const reviewsObj = useSelector(state => state.reviews)
   const reviewsArr = Object.values(reviewsObj);
+  
   console.log(reviewsArr)
   useEffect(() => {
     dispatch(thunkGetReviewsBySpotId(spotId))
-  }, [dispatch, spotId]);
+  }, [dispatch, spotId, dispatched]);
 
   if(!reviewsObj) return null
+
+  for(let rev of reviewsArr) {
+    if (!rev.User) return null
+  }
 
   const readableDate = (date) => {
     const newDate = new Date(date);

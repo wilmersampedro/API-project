@@ -1,24 +1,31 @@
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import './SpotDetail.css'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { thunkGetOneSpot } from "../../store/spots";
 import Reviews from "../Reviews/Reviews";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import PostReviewModal from "../PostReviewModal/PostReviewModal";
 
 const SpotDetail = () => {
   const { spotId } = useParams();
   const dispatch = useDispatch();
+  const [dispatched, setDispatched] = useState(false);
+  const sessionUser = useSelector(state => state.session.user);
+  const reviews = useSelector(state => state.reviews);
 
   useEffect(() => {
     dispatch(thunkGetOneSpot(spotId))
-  }, [dispatch, spotId])
+  }, [dispatch, spotId, reviews, dispatched])
 
   const spot = useSelector(state => state.spots[spotId]);
   if(!spot || !spot.SpotImages) return null;
   const imagesArr = spot.SpotImages;
 
-  // console.log("SPOT IN spot detail component", spot)
-  console.log("TYPE OF", typeof spot.avgRating)
+  // const toggleReview = (e) => {
+  //   e.stopPropagation();
+
+  // }
 
   return (
     <div id="spot-detail-main-container">
@@ -44,16 +51,20 @@ const SpotDetail = () => {
         </div>
         <div id="reservation-section">
           <span>${spot.price}</span><span>night</span>
-          <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i>{spot.numReviews} {spot.numReviews > 1 ? 'Reviews' : 'Review'}</span>
+          <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i>{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
           <button id="reserve-button" onClick={() => alert("Feature coming soon")}>Reserve</button>
         </div>
       </div>
       <section>
         <div>
-        <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i> {spot.numReviews} {spot.numReviews > 1 ? 'Reviews' : 'Review'}</h2>
+        <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i> {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h2>
         </div>
+          {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
+            buttonText="Post Your Review"
+            modalComponent={<PostReviewModal spotId={spotId} setDispatched={setDispatched}/>}
+          />}
         <div>
-          <Reviews spotId={spotId}/>
+          <Reviews spotId={spotId} dispatched={dispatched}/>
         </div>
       </section>
     </div>
