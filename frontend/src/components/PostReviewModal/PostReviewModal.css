@@ -1,0 +1,40 @@
+#review-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid black;
+  border-radius: 5px;
+}
+
+#review-modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#new-review-modal-label {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+}
+
+#newReviewText {
+  width: 100%;
+  height: 100px;
+  background-color: rgba(198, 227, 255, 0.459);
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+#stars-container {
+  display: flex;
+}
+
+.filled {
+  color: gold
+}
+
+.empty {
+  color: black
+}
