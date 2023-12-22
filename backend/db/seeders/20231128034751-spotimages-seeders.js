@@ -14,23 +14,23 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: "https://assets-global.website-files.com/5dcc7f8c449e597ed83356b8/6269b3a19f67fd137a262d0a_A%20Logo%20Main%20-%20Red.svg",
+        url: "https://a0.muscache.com/im/pictures/a3bf55c6-4a8e-4fe4-b445-09b5602c9dd1.jpg?im_w=1200",
         preview: true
       },
       {
         spotId: 2,
-        url: "https://assets-global.website-files.com/5dcc7f8c449e597ed83356b8/5faae1191b673c881b077e1f_ogaa-min.png",
-        preview: false
+        url: "https://a0.muscache.com/im/pictures/miso/Hosting-730521968827915562/original/87804030-0d9a-4608-87d8-bbc6fe9475b0.jpeg?im_w=1200",
+        preview: true
       },
       {
         spotId: 3,
-        url: "https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg",
+        url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-47715077/original/6d404883-9653-4dee-ac1a-fcf66b9cc741.jpeg?im_w=1200",
         preview: true
       },
       {
         spotId: 4,
-        url: "https://www.collegetransitions.com/wp-content/uploads/2022/05/ucsb-1-e1652888795673.png",
-        preview: false
+        url: "https://a0.muscache.com/im/pictures/06e29af9-7ae8-47a9-949e-126983c59f88.jpg?im_w=1200",
+        preview: true
       }
     ], { validate: true });
   },

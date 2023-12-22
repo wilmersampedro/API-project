@@ -20,7 +20,7 @@ const LandingPage = () => {
     <div id="tilesContainer">
     {spotsArr.map((spot) => (
       <div key={spot.id} className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
-        <img src={"https://a0.muscache.com/im/pictures/b7c9264d-73c9-45c3-882e-6e9577d63d68.jpg?im_w=1200"} className="tileImage"/>
+        <img src={spot.previewImage} className="tileImage"/>
       <div>
         <div className="location-container">
           {spot.city}, {spot.state}
