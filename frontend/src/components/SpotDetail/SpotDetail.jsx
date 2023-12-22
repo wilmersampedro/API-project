@@ -21,6 +21,7 @@ const SpotDetail = () => {
   const spot = useSelector(state => state.spots[spotId]);
   if(!spot || !spot.SpotImages) return null;
   const imagesArr = spot.SpotImages;
+  console.log("🚀 ~ file: SpotDetail.jsx:24 ~ SpotDetail ~ imagesArr:", imagesArr)
 
   // const toggleReview = (e) => {
   //   e.stopPropagation();
@@ -38,10 +39,10 @@ const SpotDetail = () => {
           <img className="spot-detail-main-img"src={imagesArr[0].url}/>
         </div>
         <div className="small-images-container">
-          <div className="spot-detail-small-image"><img src="."/> </div>
-          <div className="spot-detail-small-image"><img src="."/></div>
-          <div className="spot-detail-small-image"><img src="."/></div>
-          <div className="spot-detail-small-image"><img src="."/></div>
+          {imagesArr[1] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[1].url}/></div>}
+          {imagesArr[2] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[2].url}/></div>}
+          {imagesArr[3] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[3].url}/></div>}
+          {imagesArr[4] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[4].url}/></div>}
         </div>
       </div>
       <div id="spot-info-container">
@@ -51,13 +52,13 @@ const SpotDetail = () => {
         </div>
         <div id="reservation-section">
           <span>${spot.price}</span><span>night</span>
-          <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i>{spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
+          <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} · {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
           <button id="reserve-button" onClick={() => alert("Feature coming soon")}>Reserve</button>
         </div>
       </div>
       <section>
         <div>
-        <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} <i className="fa-solid fa-circle fa-2xs"></i> {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h2>
+        <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} · {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h2>
         </div>
           {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
             buttonText="Post Your Review"

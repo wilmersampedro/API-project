@@ -116,6 +116,7 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
 
 export const thunkAddImageToSpot = (spotId, images) => async (dispatch) => {
 try {
+  const newImgArr = [];
   for(let image of images) {
     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
       method: "POST",
@@ -129,10 +130,11 @@ try {
     })
     if(response.ok) {
       const newImg = await response.json();
-      return newImg
+      newImgArr.push(newImg)
     }
 
   }
+  return newImgArr;
 
 } catch (error) {
   const errors = await error.json();
