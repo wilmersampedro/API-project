@@ -2,12 +2,21 @@ import { csrfFetch } from "./csrf"
 
 //types
 const GET_ALL_SPOTS  = "spots/getAllSpots"
+const GET_SPOTS_CURR_USER = "spots/current"
 const GET_ONE_SPOT = "spots/getOneSpot"
 const CREATE_SPOT = "spots/createSpot"
+const DELETE_SPOT = "spots/deleteSpot"
 //action creators
 const actionGetAllSpots = (spots) => {
   return {
     type: GET_ALL_SPOTS,
+    spots
+  }
+}
+
+const actionGetSpotsCurrent = (spots) => {
+  return {
+    type: GET_SPOTS_CURR_USER,
     spots
   }
 }
@@ -25,6 +34,13 @@ const actionCreateSpot = (newSpot) => {
     newSpot
   }
 }
+
+const actionDeleteSpot = (spotId) => {
+  return {
+    type: DELETE_SPOT,
+    spotId
+  }
+}
 //thunks
 export const thunkGetSpots = () => async (dispatch) => {
   const response = await fetch('/api/spots', {
@@ -37,6 +53,24 @@ export const thunkGetSpots = () => async (dispatch) => {
   if (response.ok) {
     const spots = await response.json();
     dispatch(actionGetAllSpots(spots));
+    return spots;
+  } else {
+    const error = await response.json();
+    return error;
+  }
+}
+
+export const thunkGetSpotsCurrUser = () => async (dispatch) => {
+  const response = await fetch('/api/spots/current', {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if(response.ok) {
+    const spots = await response.json();
+    dispatch(actionGetSpotsCurrent(spots))
     return spots;
   } else {
     const error = await response.json();
@@ -147,6 +181,23 @@ export const thunkAddNewSpotToStore = (newSpot) => (dispatch) => {
   dispatch(actionCreateSpot(newSpot))
 }
 
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response.ok) {
+    const successMsg = await response.json();
+    dispatch(actionDeleteSpot(spotId))
+    return successMsg
+  } else {
+    const error = await response.json();
+    return error;
+  }
+}
 //reducers
 export default function spotsReducer(state = {}, action) {
   switch(action.type) {
@@ -157,6 +208,12 @@ export default function spotsReducer(state = {}, action) {
       // const allSpots = {...state, ...action.spots.Spots}
       return allSpots
     }
+    case GET_SPOTS_CURR_USER: {
+      const newState = {};
+      console.log("IN THE REDUCER", action.spots)
+      action.spots.Spots.map((spot) => newState[spot.id] = spot)
+      return newState;
+    }
     case GET_ONE_SPOT: {
       const newState = {};
       newState[action.spot.id]= action.spot
@@ -164,6 +221,11 @@ export default function spotsReducer(state = {}, action) {
     }
     case CREATE_SPOT: {
       return {...state, [action.newSpot.id]: action.newSpot};
+    }
+    case DELETE_SPOT: {
+      const newState = {...state};
+      delete newState[action.spotId]
+      return newState
     }
     default:
       return state;

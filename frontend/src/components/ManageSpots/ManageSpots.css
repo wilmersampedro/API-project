@@ -1,0 +1,59 @@
+#manageSpotsContainer {
+  border-top: 1px solid gray;
+}
+
+#manageSpotsTilesContainer {
+  display: flex;
+  /* justify-content: space-evenly; */
+  gap: 30px;
+  justify-content: flex-start;
+  margin: 40px;
+}
+
+#manageSpotHeader {
+  margin-left: 40px;
+}
+
+#manageSpotsTitle{
+  margin-bottom: 5px;
+}
+
+#manageSpotsCreateButton {
+  height: 25px;
+  background-color: rgb(85, 85, 85);
+  color: white;
+  border: 3px solid black;
+  border-radius: 2px;
+  box-shadow: 3px 3px black;
+}
+
+#manageSpotsCreateButton:hover {
+  cursor: pointer;
+}
+
+.manageSpotsButtons {
+  background-color: rgb(85, 85, 85);
+  color: white;
+  border: 3px solid black;
+  border-radius: 2px;
+  box-shadow: 2px 2px black;
+  margin: 5px 5px 5px 0;
+}
+
+.manageSpotsButtons:hover {
+  cursor: pointer;
+}
+
+#manageDeleteButton {
+  background-color: rgb(85, 85, 85);
+  color: white;
+  border: 3px solid black;
+  border-radius: 2px;
+  box-shadow: 2px 2px black;
+  margin: 5px 5px 5px 0;
+  width: 60px;
+}
+
+#manageDeleteButton:hover {
+cursor: pointer;
+}

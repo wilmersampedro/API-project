@@ -1,0 +1,45 @@
+#deleteModalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  border: 5px solid black;
+  border-radius: 5px;
+}
+
+#confirmDeleteQuestion {
+  width: 90%;
+  margin-top: 0;
+}
+
+#deleteButtonContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+#deleteButton {
+  margin-bottom: 10px;
+  height: 40px;
+  background-color: rgb(252, 111, 95);
+  color: white;
+  box-shadow: 3px 3px black;
+  border: 3px solid black;
+}
+
+#deleteButton:hover{
+  cursor: pointer;
+}
+
+#cancelDeleteButton {
+  margin-bottom: 10px;
+  height: 40px;
+  background-color: rgb(100, 100, 100);
+  color: white;
+  box-shadow: 3px 3px black;
+  border: 3px solid black;
+}
+
+#cancelDeleteButton:hover{
+  cursor: pointer;
+}
