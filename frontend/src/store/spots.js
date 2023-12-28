@@ -6,6 +6,7 @@ const GET_SPOTS_CURR_USER = "spots/current"
 const GET_ONE_SPOT = "spots/getOneSpot"
 const CREATE_SPOT = "spots/createSpot"
 const DELETE_SPOT = "spots/deleteSpot"
+const EDIT_SPOT = "spots/editSpot"
 //action creators
 const actionGetAllSpots = (spots) => {
   return {
@@ -41,6 +42,14 @@ const actionDeleteSpot = (spotId) => {
     spotId
   }
 }
+
+const actionEditSpot = (updatedSpot) => {
+  return {
+    type: EDIT_SPOT,
+    updatedSpot
+  }
+}
+
 //thunks
 export const thunkGetSpots = () => async (dispatch) => {
   const response = await fetch('/api/spots', {
@@ -198,6 +207,28 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
     return error;
   }
 }
+
+export const thunkEditSpot = (editedSpot, spotId) => async (dispatch) => {
+  console.log("IN THE EDIT THUNK", editedSpot, spotId)
+  try {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editedSpot)
+    });
+
+    if (response.ok) {
+      const updatedSpot = await response.json();
+      dispatch(actionEditSpot(updatedSpot))
+      return updatedSpot;
+    }
+  } catch (error) {
+      const errors = await error.json();
+      return errors;
+  }
+}
 //reducers
 export default function spotsReducer(state = {}, action) {
   switch(action.type) {
@@ -209,13 +240,16 @@ export default function spotsReducer(state = {}, action) {
       return allSpots
     }
     case GET_SPOTS_CURR_USER: {
-      const newState = {};
+      const newState = {...state};
+      console.log("🚀 ~ STATE", state)
+      console.log("🚀 NEWSTATE in GET SPOTS CURR", newState)
       console.log("IN THE REDUCER", action.spots)
       action.spots.Spots.map((spot) => newState[spot.id] = spot)
+      console.log("NEWSTATE AFTER CURR REDUCER", newState)
       return newState;
     }
     case GET_ONE_SPOT: {
-      const newState = {};
+      const newState = {...state};
       newState[action.spot.id]= action.spot
       return newState
     }
@@ -226,6 +260,11 @@ export default function spotsReducer(state = {}, action) {
       const newState = {...state};
       delete newState[action.spotId]
       return newState
+    }
+    case EDIT_SPOT: {
+      const newState = {...state};
+      newState[action.updatedSpot.id] = action.updatedSpot
+      return newState;
     }
     default:
       return state;
