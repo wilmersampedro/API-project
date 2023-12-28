@@ -210,21 +210,23 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
 
 export const thunkEditSpot = (editedSpot, spotId) => async (dispatch) => {
   console.log("IN THE EDIT THUNK", editedSpot, spotId)
-  const response = await csrfFetch(`/api/spots/${spotId}`, {
-    method: "PUT",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(editedSpot)
-  });
+  try {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editedSpot)
+    });
 
-  if (response.ok) {
-    const updatedSpot = await response.json();
-    dispatch(actionEditSpot(updatedSpot))
-    return updatedSpot;
-  } else {
-    const error = await response.json();
-    return error;
+    if (response.ok) {
+      const updatedSpot = await response.json();
+      dispatch(actionEditSpot(updatedSpot))
+      return updatedSpot;
+    }
+  } catch (error) {
+      const errors = await error.json();
+      return errors;
   }
 }
 //reducers

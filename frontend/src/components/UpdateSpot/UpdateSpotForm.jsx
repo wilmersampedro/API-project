@@ -10,7 +10,7 @@ const EditSpot = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const existingSpot = useSelector(state => state.spots[id])
-  
+
   useEffect(() => {
     dispatch(thunkGetOneSpot(id))
     setCountry(existingSpot?.country)
@@ -54,6 +54,7 @@ const EditSpot = () => {
 
     if (updatedSpot.errors) {
       setErrors({ ...updatedSpot.errors, ...errors })
+      console.log("ERRORS", updatedSpot.errors)
       console.log("ERROR IN COMPONENT", errors)
     } else {
       navigate(`/spots/${updatedSpot.id}`)
