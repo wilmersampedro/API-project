@@ -3,7 +3,7 @@ import { useModal } from "../../context/Modal";
 import './DeleteSpotModal.css'
 import { thunkDeleteSpot } from "../../store/spots";
 
-function DeleteSpotModal ({spot}) {
+function DeleteSpotModal({ spot }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -15,8 +15,8 @@ function DeleteSpotModal ({spot}) {
       <h1>Confirm Delete</h1>
       <h3 id="confirmDeleteQuestion">Are you sure you want to remove this spot from the listings?</h3>
       <div id="deleteButtonContainer">
-      <button id="deleteButton" onClick={handleDelete}>Yes (Delete Spot)</button>
-      <button id="cancelDeleteButton" onClick={() => closeModal()}>No (Keep Spot)</button>
+        <button id="deleteButton" onClick={handleDelete}>Yes (Delete Spot)</button>
+        <button id="cancelDeleteButton" onClick={() => closeModal()}>No (Keep Spot)</button>
       </div>
     </div>
   )
