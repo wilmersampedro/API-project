@@ -56,7 +56,12 @@ const SpotDetail = () => {
               <span id="spotPriceReserveSection">${spot.price}</span><span className="nightSpan" > night</span>
             </div>
             <div>
-              <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}<span className="dotSpan"> ·</span> {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
+              {spot.numReviews ? (
+
+                <span className="spotReviewsReserveSection" ><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}<span className="dotSpan"> ·</span> {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
+              ) : (
+                <span className="spotReviewsReserveSection"><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}</span>
+              )}
             </div>
           </div>
           <button id="reserve-button" onClick={() => alert("Feature coming soon")}>Reserve</button>
@@ -68,6 +73,7 @@ const SpotDetail = () => {
         </div>
         {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
           buttonText="Post Your Review"
+          buttonId={"postYourReviewButton"}
           modalComponent={<PostReviewModal spotId={spotId} setRendered={setRendered} />}
         />}
         <div>

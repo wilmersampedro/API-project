@@ -3,6 +3,8 @@ import { thunkGetReviewsBySpotId } from "../../store/reviews";
 import { useEffect } from "react";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
+import './Reviews.css'
+
 const Reviews = ({spotId, rendered}) => {
   const dispatch = useDispatch();
   const reviewsObj = useSelector(state => state.reviews)
@@ -32,15 +34,26 @@ const Reviews = ({spotId, rendered}) => {
   return (
     <>
     {reviewsArr.map((review) => (
-      <div key={review.id}>
-        <p>{review.User.firstName}</p>
-        <p>{getMonth(review.createdAt)} {readableDate(review.createdAt)}</p>
-        <p>{review.review}</p>
-        {sessionUser.id === review.User.id && <OpenModalButton
+      <div key={review.id} className="reviewListIndivContainer">
+        <p id="reviewListFirstName">{review.User.firstName}</p>
+        <p id="reviewListDate">{getMonth(review.createdAt)} {readableDate(review.createdAt)}</p>
+        <p id="reviewListText">{review.review}</p>
+        {sessionUser ? (
+          <>
+          {sessionUser.id === review.User.id && <OpenModalButton
+            buttonText="Delete"
+            buttonId={"ReviewListDeleteButton"}
+            modalComponent={<DeleteReviewModal id={review.id}/>}
+            />}
+          </>
+        ) : (
+          <></>
+        )}
+        {/* {sessionUser.id === review.User.id && <OpenModalButton
         buttonText="Delete"
         buttonId={"manageDeleteButton"}
         modalComponent={<DeleteReviewModal id={review.id}/>}
-        />}
+        />} */}
       </div>
     ))}
     </>
