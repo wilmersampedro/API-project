@@ -32,7 +32,7 @@ const SpotDetail = () => {
     <div id="spot-detail-main-container">
       <div id="spotDetailHeadingInfoContainer">
         <p className="spot-title">{spot.name}</p>
-        <span>{spot.city}, {spot.state}, {spot.country}</span>
+        <span id="spotDetailLocationInfo">{spot.city}, {spot.state}, {spot.country}</span>
       </div>
       <div className="spot-detail-all-images-container">
         <div className="spot-detail-image-container">

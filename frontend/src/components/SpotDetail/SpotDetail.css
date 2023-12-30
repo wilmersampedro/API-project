@@ -9,8 +9,12 @@
 .spot-title {
   font-size: 30px;
   font-weight: bold;
-
 }
+
+#spotDetailLocationInfo {
+  font-size: 20px;
+}
+
 .spot-detail-all-images-container {
   display: flex;
   gap: 5px;
@@ -55,6 +59,7 @@
   margin-left: 50px;
   padding-bottom: 40px;
   border-bottom: 1px solid black;
+  justify-content: space-between;
 }
 
 #hostedByNameHeader {
@@ -70,9 +75,10 @@
   display: flex;
   flex-direction: column;
   border: 3px solid black;
-  width: 30%;
+  width: 25%;
   border-radius: 10px;
   padding: 20px;
+  margin-right: 50px;
 }
 
 #reserveSectionTopSection {
@@ -94,7 +100,7 @@
 #reserve-button {
   background-color: #d84228;
   width: 100%;
-  height: 50px;
+  height: 70px;
   color: white;
   font-size: larger;
   border: 3px solid black;
