@@ -2,23 +2,32 @@
   border-top: 2px solid lightgray;
 }
 
+#spotDetailHeadingInfoContainer{
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
 .spot-title {
   font-size: 30px;
   font-weight: bold;
+
 }
 .spot-detail-all-images-container {
   display: flex;
   gap: 5px;
+  margin-left: 50px;
+  margin-bottom: 25px;
 }
 .spot-detail-image-container {
   border: 1px solid black;
   width: 48%;
-  height: 400px;
+  height: 550px;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .spot-detail-main-img {
   width: 100%;
   height: 100%;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .small-images-container {
@@ -31,20 +40,24 @@
 }
 
 .indiv-small-img-boxes {
-  height: 198px;
+  height: 273px;
 }
 
 .spot-detail-small-image{
-  border: 1px solid purple;
   width: 100%;
   height: 100%;
 }
 
 #spot-info-container {
-  border: 1px solid red;
   display: flex;
   flex-direction: row;
   width: 96.5%;
+  margin-left: 50px;
+
+}
+
+#hostedByNameHeader {
+  margin-top: 0;
 }
 
 #spot-info {
@@ -56,12 +69,40 @@
   flex-direction: column;
   border: 3px solid black;
   width: 30%;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 20px;
 }
 
+#reserveSectionTopSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5px;
+}
+#spotPriceReserveSection {
+  font-size: 30px;
+}
+
+.nightSpan {
+  font-size: 20px;
+}
+
 #reserve-button {
-  background-color: #FF385C;
-  width: 80%;
-  height: 100%;
+  background-color: #d84228;
+  width: 100%;
+  height: 50px;
+  color: white;
+  font-size: larger
+}
+
+#reserve-button:hover {
+  cursor: pointer;
+}
+
+#spotDetailReviewSection{
+  margin-left: 50px;
+}
+
+.dotSpan {
+  font-size: larger;
 }

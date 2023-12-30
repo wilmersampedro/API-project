@@ -19,7 +19,7 @@ const SpotDetail = () => {
   }, [dispatch, spotId, reviews, rendered])
 
   const spot = useSelector(state => state.spots[spotId]);
-  if(!spot || !spot.SpotImages) return null;
+  if (!spot || !spot.SpotImages) return null;
   const imagesArr = spot.SpotImages;
   console.log("🚀 ~ file: SpotDetail.jsx:24 ~ SpotDetail ~ imagesArr:", imagesArr)
 
@@ -30,42 +30,48 @@ const SpotDetail = () => {
 
   return (
     <div id="spot-detail-main-container">
-      <div>
+      <div id="spotDetailHeadingInfoContainer">
         <p className="spot-title">{spot.name}</p>
         <span>{spot.city}, {spot.state}, {spot.country}</span>
       </div>
       <div className="spot-detail-all-images-container">
         <div className="spot-detail-image-container">
-          <img className="spot-detail-main-img"src={imagesArr[0].url}/>
+          <img className="spot-detail-main-img" src={imagesArr[0].url} />
         </div>
         <div className="small-images-container">
-          {imagesArr[1] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[1].url}/></div>}
-          {imagesArr[2] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[2].url}/></div>}
-          {imagesArr[3] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[3].url}/></div>}
-          {imagesArr[4] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[4].url}/></div>}
+          {imagesArr[1] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[1].url} /></div>}
+          {imagesArr[2] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[2].url} /></div>}
+          {imagesArr[3] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[3].url} /></div>}
+          {imagesArr[4] && <div className="indiv-small-img-boxes"><img className="spot-detail-small-image" src={imagesArr[4].url} /></div>}
         </div>
       </div>
       <div id="spot-info-container">
         <div id="spot-info">
-          <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+          <h2 id="hostedByNameHeader">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
           <p>{spot.description}</p>
         </div>
         <div id="reservation-section">
-          <span>${spot.price}</span><span>night</span>
-          <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} · {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
+          <div id="reserveSectionTopSection">
+            <div>
+              <span id="spotPriceReserveSection">${spot.price}</span><span className="nightSpan" > night</span>
+            </div>
+            <div>
+              <span><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}<span className="dotSpan"> ·</span> {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</span>
+            </div>
+          </div>
           <button id="reserve-button" onClick={() => alert("Feature coming soon")}>Reserve</button>
         </div>
       </div>
-      <section>
+      <section id="spotDetailReviewSection">
         <div>
-        <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} · {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h2>
+          <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} · {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h2>
         </div>
-          {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
-            buttonText="Post Your Review"
-            modalComponent={<PostReviewModal spotId={spotId} setRendered={setRendered}/>}
-          />}
+        {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
+          buttonText="Post Your Review"
+          modalComponent={<PostReviewModal spotId={spotId} setRendered={setRendered} />}
+        />}
         <div>
-          <Reviews spotId={spotId} rendered={rendered}/>
+          <Reviews spotId={spotId} rendered={rendered} />
         </div>
       </section>
     </div>
