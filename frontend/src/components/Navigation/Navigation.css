@@ -32,7 +32,8 @@
 
 #createSpotLink {
   text-decoration: none;
-  color: black;
+  color: rgb(5, 109, 109);
+  font-size: 18px;
 }
 
 #manageSpotsLink {
