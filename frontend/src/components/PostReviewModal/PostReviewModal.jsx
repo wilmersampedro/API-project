@@ -1,7 +1,7 @@
 import { useState } from "react"
 import './PostReviewModal.css'
 import { useDispatch, useSelector } from "react-redux"
-import { thunkCreateNewReview } from "../../store/reviews";
+import { thunkCreateNewReview, thunkGetReviewsBySpotId } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 
 function PostReviewModal ({spotId, setRendered}) {
@@ -25,8 +25,9 @@ function PostReviewModal ({spotId, setRendered}) {
       stars: rating
     }
 
-    const newlyCreatedReview = dispatch(thunkCreateNewReview(newReview, spotId, currUser)).then(closeModal).then(setRendered(true))
-    return newlyCreatedReview
+    dispatch(thunkCreateNewReview(newReview, spotId, currUser)).then(closeModal).then(setRendered(true))
+    dispatch(thunkGetReviewsBySpotId(spotId))
+    // return newlyCreatedReview
   }
 
   return (
