@@ -84,7 +84,7 @@ export const thunkCreateNewReview = (review, spotId, currUser) => async (dispatc
     const newReview = await response.json();
     dispatch(actionCreateNewReview({...newReview, ...currUser}))
 
-    console.log("🚀 ~ file: reviews.js:84 ~ thunkCreateNewReview ~ newReview:", newReview)
+    console.log("🚀 ~ file: reviews.js:84 ~ thunkCreateNewReview ~ newReview: IN THUNK", newReview)
     return newReview;
   } else {
     const errors = await response.json();

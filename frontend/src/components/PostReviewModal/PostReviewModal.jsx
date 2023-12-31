@@ -1,7 +1,7 @@
 import { useState } from "react"
 import './PostReviewModal.css'
 import { useDispatch, useSelector } from "react-redux"
-import { thunkCreateNewReview } from "../../store/reviews";
+import { thunkCreateNewReview, thunkGetReviewsBySpotId } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 
 function PostReviewModal ({spotId, setRendered}) {
@@ -9,6 +9,7 @@ function PostReviewModal ({spotId, setRendered}) {
   const [review, setReview] = useState('')
   const [rating, setRating] = useState(0)
   const [activeRating, setActiveRating] = useState(rating);
+  const [error, setError] = useState({})
   const { closeModal } = useModal();
 
   const onChange = (number) => {
@@ -18,20 +19,33 @@ function PostReviewModal ({spotId, setRendered}) {
 
   const currUser = useSelector(state => state.session.user)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const errors = {}
+
     const newReview = {
       review,
       stars: rating
     }
 
-    const newlyCreatedReview = dispatch(thunkCreateNewReview(newReview, spotId, currUser)).then(closeModal).then(setRendered(true))
-    return newlyCreatedReview
+    const newlyCreatedReview = await dispatch(thunkCreateNewReview(newReview, spotId, currUser))
+    // .then(closeModal).then(setRendered(true))
+    if(newlyCreatedReview.errors) {
+      errors.message = "Review already exists for this spot"
+      setError(errors)
+      return error
+    }
+    closeModal()
+    setRendered(true)
+    console.log("🚀 NEW REVIEW IN COMP NO ERROR", newlyCreatedReview)
+    dispatch(thunkGetReviewsBySpotId(spotId))
+    // return newlyCreatedReview
   }
 
   return (
     <div id="review-modal-container">
     <h1>How was your stay?</h1>
+    {"message" in error && <p>{error.message}</p>}
     <form id="review-modal-form" onSubmit={handleSubmit}>
       <label id="new-review-modal-label">
         <textarea
