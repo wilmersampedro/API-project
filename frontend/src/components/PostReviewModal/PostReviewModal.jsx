@@ -25,7 +25,8 @@ function PostReviewModal ({spotId, setRendered}) {
       stars: rating
     }
 
-    dispatch(thunkCreateNewReview(newReview, spotId, currUser)).then(closeModal).then(setRendered(true))
+    const newlyCreatedReview = dispatch(thunkCreateNewReview(newReview, spotId, currUser)).then(closeModal).then(setRendered(true))
+    return newlyCreatedReview
   }
 
   return (
@@ -57,9 +58,9 @@ function PostReviewModal ({spotId, setRendered}) {
           <i className="fa-solid fa-star"></i>
         </div>
 
-      <span>Stars</span>
+      <span id="starsSpanPostReview">Stars</span>
       </div>
-      <button type="submit">Submit Your Review</button>
+      <button id={(review.length < 10 || rating < 1) ? "disabledButton" : "postReviewButtonConfirmation"} type="submit" disabled={review.length < 10 || rating < 1}>Submit Your Review</button>
     </form>
     </div>
   )
