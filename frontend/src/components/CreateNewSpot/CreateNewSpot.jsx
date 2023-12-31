@@ -25,7 +25,13 @@ const CreateNewSpot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const error = {};
     setSubmitted(true)
+    if(!image1) {
+      error.image1 = "Preview Image required"
+      setErrors(errors)
+      return errors
+    }
     console.log("ERRORS IN HANDLE SUBMIT",errors)
     // if (!image1) {
     //   setErrors({ image1: "Preview Image required" })
@@ -91,8 +97,32 @@ const CreateNewSpot = () => {
   useEffect(() => {
     const validationErrors = {}
 
-    if (description.length < 30) {
+    if(submitted && !country) {
+      validationErrors.country = "Country is required"
+    }
+
+    if(submitted && !address) {
+      validationErrors.address = "Address is required"
+    }
+
+    if(submitted && !city) {
+      validationErrors.city = "City is required"
+    }
+
+    if(submitted && !state) {
+      validationErrors.state = "State is required"
+    }
+
+    if(submitted && description.length < 30) {
       validationErrors.description = "Description needs a minimum of 30 characters"
+    }
+
+    if(submitted && !name) {
+      validationErrors.name = "Name is required"
+    }
+
+    if(submitted && !price) {
+      validationErrors.price = "Price is required"
     }
 
     if (submitted && !image1) {
@@ -100,7 +130,7 @@ const CreateNewSpot = () => {
     }
 
     setErrors(validationErrors)
-  }, [image1, description.length, submitted])
+  }, [image1, description.length, submitted, address, city, country, name, price, state])
 
   return (
     <div id="create-spot-container">
@@ -192,12 +222,12 @@ const CreateNewSpot = () => {
             id="price-input"
             type="number"
             value={price}
-            step={1}
+            step={.01}
             min={1}
             placeholder="Price per night (USD)"
             onChange={(e) => setPrice(e.target.value)}
           />
-          {"price" in errors && <span style={{ color: "red" }}>{errors.price}</span>}
+          {"price" in errors && <p style={{ color: "red" }}>{errors.price}</p>}
         </label>
         <label className="create-border-bottom" id="photo-inputs">
           <h2 id="photo-header-form">Liven up your spot with photos</h2>

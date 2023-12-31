@@ -64,10 +64,37 @@ const EditSpot = () => {
   useEffect(() => {
     const validationErrors = {}
 
-    if (description?.length < 30) validationErrors.description = "Description needs a minimum of 30 characters"
+    if(submitted && !country) {
+      validationErrors.country = "Country is required"
+    }
+
+    if(submitted && !address) {
+      validationErrors.address = "Address is required"
+    }
+
+    if(submitted && !city) {
+      validationErrors.city = "City is required"
+    }
+
+    if(submitted && !state) {
+      validationErrors.state = "State is required"
+    }
+
+    if(submitted && description.length < 30) {
+      validationErrors.description = "Description needs a minimum of 30 characters"
+    }
+
+    if(submitted && !name) {
+      validationErrors.name = "Name is required"
+    }
+
+    if(submitted && !price) {
+      validationErrors.price = "Price is required"
+    }
+
 
     setErrors(validationErrors)
-  }, [description?.length, submitted])
+  }, [description.length, submitted, address, city, country, name, price, state])
 
 
   if(!existingSpot) return null;
@@ -162,7 +189,7 @@ const EditSpot = () => {
             id="price-input"
             type="number"
             value={price}
-            step={1}
+            step={.01}
             min={1}
             placeholder="Price per night (USD)"
             onChange={(e) => setPrice(e.target.value)}
