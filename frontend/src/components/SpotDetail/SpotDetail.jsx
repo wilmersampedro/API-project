@@ -38,7 +38,6 @@ const SpotDetail = () => {
           if (review.User.id === userId) {
             return true
           }
-
         }
       }
       return false;

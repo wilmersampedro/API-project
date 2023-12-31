@@ -4,6 +4,7 @@
   align-items: center;
   border: 5px solid black;
   border-radius: 5px;
+  width: 500px;
 }
 
 #review-modal-form {
@@ -21,20 +22,56 @@
 
 #newReviewText {
   width: 100%;
-  height: 100px;
+  height: 170px;
   background-color: rgba(198, 227, 255, 0.459);
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 15px;
+  border: 4px solid black;
+  border-radius: 5px;
 }
 
 #stars-container {
   display: flex;
+  font-size: 30px;
 }
 
+#starsSpanPostReview {
+  font-size: 20px;
+  align-self: center;
+  margin-left: 5px;
+}
 .filled {
   color: gold
 }
 
 .empty {
   color: black
+}
+
+#postReviewButtonConfirmation {
+  height: 50px;
+  width: 95%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #d84228;
+  color: white;
+  border: 3px solid black;
+  box-shadow: 3px 3px black;
+  font-size: 18px;
+}
+
+#postReviewButtonConfirmation:hover {
+  cursor: pointer;
+}
+
+#disabledButton {
+  height: 50px;
+  width: 95%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: white;
+  font-size: 18px;
+  color: gray;
+  border: 3px solid gray;
+  box-shadow: 3px 3px gray;
 }

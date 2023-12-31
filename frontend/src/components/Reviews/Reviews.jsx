@@ -7,15 +7,15 @@ import './Reviews.css'
 
 const Reviews = ({ spot, rendered }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(thunkGetReviewsBySpotId(spot.id))
+  }, [dispatch, spot.id, rendered]);
   const reviewsObj = useSelector(state => state.reviews)
   const reviewsArr = Object.values(reviewsObj);
   const sessionUser = useSelector(state => state.session.user)
   console.log("SPOT", spot)
   // console.log("🚀 ~ file: Reviews.jsx:10 ~ Reviews ~ sessionUser:", sessionUser.id, spot.id)
   console.log(reviewsArr)
-  useEffect(() => {
-    dispatch(thunkGetReviewsBySpotId(spot.id))
-  }, [dispatch, spot.id, rendered]);
 
   // if(!reviewsObj) return null
 
