@@ -14,6 +14,10 @@ const SpotDetail = () => {
   const sessionUser = useSelector(state => state.session.user);
   const reviews = useSelector(state => state.reviews);
 
+  console.log(Object.values(reviews))
+  console.log("🚀 ~ file: SpotDetail.jsx:16 ~ SpotDetail ~ reviews:", reviews)
+
+
   useEffect(() => {
     dispatch(thunkGetOneSpot(spotId))
   }, [dispatch, spotId, reviews, rendered])
@@ -24,10 +28,21 @@ const SpotDetail = () => {
   console.log("🚀 ~ file: SpotDetail.jsx:24 ~ SpotDetail ~ imagesArr:", imagesArr)
 
   // const toggleReview = (e) => {
-  //   e.stopPropagation();
+    //   e.stopPropagation();
 
-  // }
+    // }
 
+    const existingReviewsCheck = (userId) => {
+      for (let review of Object.values(reviews)) {
+        if (review.User) {
+          if (review.User.id === userId) {
+            return true
+          }
+
+        }
+      }
+      return false;
+    }
   return (
     <div id="spot-detail-main-container">
       <div id="spotDetailHeadingInfoContainer">
@@ -71,13 +86,13 @@ const SpotDetail = () => {
         <div>
           <h2><i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'} · {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'}</h2>
         </div>
-        {(sessionUser && spot.Owner.id !== sessionUser.id) && <OpenModalButton
+        {(sessionUser && spot.Owner.id !== sessionUser.id && existingReviewsCheck(sessionUser.id) === false) && <OpenModalButton
           buttonText="Post Your Review"
           buttonId={"postYourReviewButton"}
           modalComponent={<PostReviewModal spotId={spotId} setRendered={setRendered} />}
         />}
         <div>
-          <Reviews spotId={spotId} rendered={rendered} />
+          <Reviews spot={spot} rendered={rendered} />
         </div>
       </section>
     </div>

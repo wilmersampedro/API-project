@@ -120,13 +120,16 @@ export default function reviewsReducer(state = {}, action) {
       return newState
     }
     case GET_REVIEWS_SPOT_ID: {
-      const newState = {...state};
+      const newState = {};//spreading state caused bugs w/ reviews
       action.reviews.Reviews.map((review) => newState[review.id] = review)
       console.log(newState)
       return newState
     }
     case CREATE_NEW_REVIEW: {
-      return {...state, [action.newReview.id]: action.newReview};
+      // return {...state, [action.newReview.id]: action.newReview};
+      const newState = {...state};
+      newState[action.newReview.id] = action.newReview
+      return newState;
     }
     case DELETE_REVIEW: {
       const newState = {...state};
