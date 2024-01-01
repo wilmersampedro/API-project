@@ -105,7 +105,7 @@ export const thunkGetOneSpot = (spotId) => async (dispatch) => {
   }
 }
 
-export const thunkCreateSpot = (spot) => async (dispatch) => {
+export const thunkCreateSpot = (spot) => async () => {
   try {
     const response = await csrfFetch ('/api/spots', {
           method: "POST",
@@ -128,7 +128,7 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
 
 }
 
-export const thunkAddImageToSpot = (spotId, images) => async (dispatch) => {
+export const thunkAddImageToSpot = (spotId, images) => async () => {
 try {
   const newImgArr = [];
   for(let image of images) {
@@ -215,7 +215,7 @@ export default function spotsReducer(state = {}, action) {
 
 
       action.spots.Spots.map((spot) => newState[spot.id] = spot)
-      
+
       return newState;
     }
     case GET_ONE_SPOT: {

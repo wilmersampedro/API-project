@@ -19,8 +19,8 @@ const LandingPage = () => {
   return (
     <div id="tilesContainer">
       {spotsArr.map((spot) => (
-        <div id="innerTileContainerHome">
-        <div key={spot.id} className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
+        <div key={spot.id} id="innerTileContainerHome">
+        <div  className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
           <img src={spot.previewImage} className="tileImage" />
           <div>
             <div className="location-container">

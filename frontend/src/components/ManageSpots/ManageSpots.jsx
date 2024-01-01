@@ -11,7 +11,7 @@ const ManageSpots = () => {
   const spots = useSelector(state => state.spots)
 
   const spotsArr = Object.values(spots);
-  
+
 
   useEffect(() => {
     dispatch(thunkGetSpotsCurrUser())
@@ -32,8 +32,8 @@ const ManageSpots = () => {
       <div id="manageSpotsTilesContainer">
 
         {spotsArr.map((spot) => (
-          <div className="spotTileAndButtonsContainer">
-            <div key={spot.id} className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
+          <div key={spot.id} className="spotTileAndButtonsContainer">
+            <div  className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
               <img src={spot.previewImage} className="tileImage" />
               <div>
                 <div className="location-container">
