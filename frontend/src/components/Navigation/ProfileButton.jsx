@@ -50,9 +50,9 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
+            <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
+            {/* <li>{user.username}</li> */}
             <li>
               <a id='manageSpotsLink' href='/spots/current'>Manage Spots</a>
             </li>
