@@ -4,13 +4,30 @@
 }
 
 #tilesContainer {
-  display: flex;
-  gap: 10px;
-  justify-content:space-evenly;
-  flex-wrap: wrap;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* gap: 10px; */
+  row-gap: 40px;
+  column-gap: 5px;
+  /* justify-content:space-around; */
+  /* flex-wrap: wrap; */
   border-top: 2px solid lightgray;
   padding-top: 20px;
-  width: 95%;
+  width: 100%;
+  /* justif */
+}
+
+#innerTileContainerHome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spotTile{
+  width: 380px;
+  justify-self: center;
+
 }
 
 .spotTile:hover {
@@ -18,8 +35,8 @@
 }
 
 .tileImage {
-  height: 400px;
-  width: 400px;
+  height: 350px;
+  width: 380px;
   border-radius: 5px;
 }
 
