@@ -9,9 +9,9 @@ const ManageSpots = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const spots = useSelector(state => state.spots)
-  // console.log("🚀 ~ file: ManageSpots.jsx:9 ~ ManageSpots ~ spots:", spots)
+
   const spotsArr = Object.values(spots);
-  // console.log("🚀 ~ file: ManageSpots.jsx:11 ~ ManageSpots ~ spotsArr:", spotsArr)
+  
 
   useEffect(() => {
     dispatch(thunkGetSpotsCurrUser())

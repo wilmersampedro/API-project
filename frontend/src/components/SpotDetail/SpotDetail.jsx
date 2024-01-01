@@ -14,8 +14,7 @@ const SpotDetail = () => {
   const sessionUser = useSelector(state => state.session.user);
   const reviews = useSelector(state => state.reviews);
 
-  console.log(Object.values(reviews))
-  console.log("🚀 ~ file: SpotDetail.jsx:16 ~ SpotDetail ~ reviews:", reviews)
+
 
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const SpotDetail = () => {
   const spot = useSelector(state => state.spots[spotId]);
   if (!spot || !spot.SpotImages) return null;
   const imagesArr = spot.SpotImages;
-  console.log("🚀 ~ file: SpotDetail.jsx:24 ~ SpotDetail ~ imagesArr:", imagesArr)
+  
 
   // const toggleReview = (e) => {
     //   e.stopPropagation();

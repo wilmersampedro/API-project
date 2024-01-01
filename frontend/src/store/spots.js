@@ -121,40 +121,11 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
     }
   } catch (error) {
     const errors = error.json();
-    console.log("ERRORS IN THUNK", errors)
+
     return errors;
   }
-//   // console.log("SPOT IN THUNK 1", spot)
-//   const response = await csrfFetch ('/api/spots', {
-//     method: "POST",
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(spot)
-//   })
-// console.log("RESPONSE IN THUNK", response)
 
-//   try {
-//     if(response.ok) {
-//       const newSpot = await response.json();
-//     console.log("RESPONSE OK", newSpot)
-//     return newSpot
-//     }
-//   } catch (error) {
-//     const errors = error.json();
-//     console.log("ERROR IN THUNK", errors)
-//     return errors
-//   }
-//   // if(response.ok) {
-//   //   const newSpot = await response.json();
-//   //   console.log("RESPONSE OK", newSpot)
-//   //   // dispatch(actionCreateSpot(newSpot));
-//   //   return newSpot;
-//   // } else {
-//   //   const error = await response.json();
-//   //   console.log("IN THE THUNK RESPONSE NOT OK", error)
-//   //   return error;
-//   // }
+
 }
 
 export const thunkAddImageToSpot = (spotId, images) => async (dispatch) => {
@@ -209,7 +180,7 @@ export const thunkDeleteSpot = (spotId) => async (dispatch) => {
 }
 
 export const thunkEditSpot = (editedSpot, spotId) => async (dispatch) => {
-  console.log("IN THE EDIT THUNK", editedSpot, spotId)
+
   try {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
       method: "PUT",
@@ -241,11 +212,10 @@ export default function spotsReducer(state = {}, action) {
     }
     case GET_SPOTS_CURR_USER: {
       const newState = {...state};
-      console.log("🚀 ~ STATE", state)
-      console.log("🚀 NEWSTATE in GET SPOTS CURR", newState)
-      console.log("IN THE REDUCER", action.spots)
+
+
       action.spots.Spots.map((spot) => newState[spot.id] = spot)
-      console.log("NEWSTATE AFTER CURR REDUCER", newState)
+      
       return newState;
     }
     case GET_ONE_SPOT: {

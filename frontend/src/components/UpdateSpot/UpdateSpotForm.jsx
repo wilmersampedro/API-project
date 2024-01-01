@@ -54,8 +54,6 @@ const EditSpot = () => {
 
     if (updatedSpot.errors) {
       setErrors({ ...updatedSpot.errors, ...errors })
-      console.log("ERRORS", updatedSpot.errors)
-      console.log("ERROR IN COMPONENT", errors)
     } else {
       navigate(`/spots/${updatedSpot.id}`)
     }

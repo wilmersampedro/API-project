@@ -32,13 +32,7 @@ const CreateNewSpot = () => {
       setErrors(errors)
       return errors
     }
-    console.log("ERRORS IN HANDLE SUBMIT",errors)
-    // if (!image1) {
-    //   setErrors({ image1: "Preview Image required" })
-    //   console.log("ERRORS IN HANDLE SUBMIT", errors)
-    // }
 
-    // setErrors({});
     const spot = {
       address,
       city,
@@ -52,12 +46,11 @@ const CreateNewSpot = () => {
     }
 
     const newSpot = await dispatch(thunkCreateSpot(spot))
-    console.log("IN THE NEWSPOT COMP", newSpot)
-    console.log("ERROR OBJ IN COMP", newSpot.errors)
+
     if (newSpot.errors) {
-      console.log("🚀 ~ file: CreateNewSpot.jsx:52 ~ handleSubmit ~ newSpot:", newSpot.errors)
+
       setErrors({ ...newSpot.errors, ...errors })
-      console.log("ERROR IN COMPONENT", errors)
+
     } else {
       if (image1) imagesArr.push(image1)
       if (image2) imagesArr.push(image2)
@@ -65,8 +58,7 @@ const CreateNewSpot = () => {
       if (image4) imagesArr.push(image4)
       if (image5) imagesArr.push(image5)
 
-      console.log("IMAGES ARR", imagesArr)
-      console.log(newSpot)
+      
 
       const newImg = dispatch(thunkAddImageToSpot(newSpot.id, imagesArr))
 

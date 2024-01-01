@@ -84,11 +84,11 @@ export const thunkCreateNewReview = (review, spotId, currUser) => async (dispatc
     const newReview = await response.json();
     dispatch(actionCreateNewReview({...newReview, ...currUser}))
 
-    console.log("🚀 ~ file: reviews.js:84 ~ thunkCreateNewReview ~ newReview: IN THUNK", newReview)
+
     return newReview;
   } else {
     const errors = await response.json();
-    console.log("🚀 ~ file: reviews.js:84 ~ thunkCreateNewReview ~ newReview:", errors)
+
     return errors;
   }
 }
@@ -122,7 +122,7 @@ export default function reviewsReducer(state = {}, action) {
     case GET_REVIEWS_SPOT_ID: {
       const newState = {};//spreading state caused bugs w/ reviews
       action.reviews.Reviews.map((review) => newState[review.id] = review)
-      console.log(newState)
+      
       return newState
     }
     case CREATE_NEW_REVIEW: {

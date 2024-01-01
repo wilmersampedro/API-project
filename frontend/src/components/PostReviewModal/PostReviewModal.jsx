@@ -37,7 +37,7 @@ function PostReviewModal ({spotId, setRendered}) {
     }
     closeModal()
     setRendered(true)
-    console.log("🚀 NEW REVIEW IN COMP NO ERROR", newlyCreatedReview)
+    
     dispatch(thunkGetReviewsBySpotId(spotId))
     // return newlyCreatedReview
   }
