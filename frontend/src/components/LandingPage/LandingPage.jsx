@@ -14,24 +14,27 @@ const LandingPage = () => {
     dispatch(thunkGetSpots())
   }, [dispatch])
 
-  if(!spots) return null;
+  if (!spots) return null;
 
   return (
     <div id="tilesContainer">
-    {spotsArr.map((spot) => (
-      <div key={spot.id} className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
-        <img src={spot.previewImage} className="tileImage"/>
-      <div>
-        <div className="location-container">
-          {spot.city}, {spot.state}
+      {spotsArr.map((spot) => (
+        <div id="innerTileContainerHome">
+        <div key={spot.id} className="spotTile" title={spot.name} onClick={() => navigate(`/spots/${spot.id}`)}>
+          <img src={spot.previewImage} className="tileImage" />
           <div>
-          <i className="fa-solid fa-star"></i>
-            {typeof spot.avgRating === "number" ? spot.avgRating.toFixed(2) : 'New'}</div>
+            <div className="location-container">
+              {spot.city}, {spot.state}
+              <div>
+                <i className="fa-solid fa-star"></i>
+                {typeof spot.avgRating === "number" ? spot.avgRating.toFixed(2) : 'New'}</div>
+            </div>
+            <span>${spot.price} night</span>
           </div>
-        <span>${spot.price} night</span>
         </div>
-      </div>
-    ))}
+
+        </div>
+      ))}
     </div>
   )
 }

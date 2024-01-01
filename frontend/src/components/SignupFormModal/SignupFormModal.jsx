@@ -44,62 +44,76 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div id='signUpModalContainer'>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
+      {/* <div id='outerSignUpFormContainer'> */}
+
+      <form id='signUpModalFormContainer' onSubmit={handleSubmit}>
+        <div className='signUpFormSectionContainer'>
         <label>
           First Name
           <input
+            className='signUpFormInputFields'
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p  className='signupFormErrors' style={{color:"red"}}>{errors.firstName}</p>}
         <label>
           Last Name
           <input
+            className='signUpFormInputFields'
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p className='signupFormErrors'  style={{color:"red"}}>{errors.lastName}</p>}
+
+        </div>
+        <div className='signUpFormSectionContainer'>
+          <label>
+            Email
+            <input
+              className='signUpFormInputFields'
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          {errors.email && <p  className='signupFormErrors' style={{color:"red"}}>{errors.email}</p>}
+          <label>
+            Username
+            <input
+              className='signUpFormInputFields'
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </label>
+          {errors.username && <p  className='signupFormErrors' style={{color:"red"}}>{errors.username}</p>}
+        </div>
+        <div className='signUpFormSectionContainer'>
         <label>
           Password
           <input
+            className='signUpFormInputFields'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className='signupFormErrors' style={{color:"red"}}>{errors.password}</p>}
         <label>
           Confirm Password
           <input
+            className='signUpFormInputFields'
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -107,11 +121,15 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
+          <p className='signupFormErrors' style={{color:"red"}}>{errors.confirmPassword}</p>
         )}
-        <button type="submit">Sign Up</button>
+
+
+        </div>
+        <button id={(!email || !password || !confirmPassword || !firstName || !lastName || username.length < 4 || password.length < 6) ? 'disabledsignupFormButton' : 'signUpFormButtonConfirmation'} disabled={!email || !password || !confirmPassword || !firstName || !lastName || username.length < 4 || password.length < 6} type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
+    // </div>
   );
 }
 

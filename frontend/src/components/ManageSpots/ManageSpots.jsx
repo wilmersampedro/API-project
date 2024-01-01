@@ -45,8 +45,8 @@ const ManageSpots = () => {
                 <span>${spot.price} night</span>
               </div>
             </div>
-            <div>
-              <div>
+            <div id="manageButtonsOuterDiv">
+              <div id="manageButtonsInnerDiv">
                 <button className="manageSpotsButtons" onClick={() => navigate(`/spots/${spot.id}/edit`)}>Update</button>
                 <OpenModalButton
                   buttonText="Delete"

@@ -1,0 +1,69 @@
+#loginModalMainContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 390px;
+  width: 500px;
+  justify-content: space-evenly;
+  /* border-radius: 50px; */
+}
+
+#loginModalHeader {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#logInModalFormContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.loginModalLabel {
+  /* margin-left: 5px; */
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.loginModalInputField {
+  display: block;
+  width: 99%;
+  background-color: rgb(239, 247, 255);
+  margin-top: 5px;
+  border: 4px solid black;
+  border-radius: 5px;
+  /* margin-left: 5px; */
+}
+
+.loginModalButton {
+  width: 100%;
+  margin: 10px 0px 10px 0px;
+  height: 50px;
+  border: 2px solid gray;
+  box-shadow: 2px 2px 2px 2px gray;
+  color: gray;
+  font-size: 16px;
+}
+
+.loginModalButton:hover {
+  cursor: pointer;
+}
+
+.enabledLoginButton{
+  width: 100%;
+  margin: 10px 0px 10px 0px;
+  height: 50px;
+  border: 2px solid black;
+  box-shadow: 2px 2px 2px 2px black;
+  color: white;
+  background-color: #d84228;
+  font-size: 16px;
+}
+
+.enabledLoginButton:hover {
+  cursor: pointer;
+}
+
+.loginCredentialValidationError {
+  margin: 0;
+}
