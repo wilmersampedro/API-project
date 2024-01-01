@@ -94,7 +94,7 @@ const EditSpot = () => {
 
 
     setErrors(validationErrors)
-  }, [description.length, submitted, address, city, country, name, price, state])
+  }, [description?.length, submitted, address, city, country, name, price, state])
 
 
   if(!existingSpot) return null;
