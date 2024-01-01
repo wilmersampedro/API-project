@@ -30,6 +30,9 @@ function LoginFormModal() {
   return (
     <div id='loginModalMainContainer'>
       <h1 id='loginModalHeader'>Log In</h1>
+          {errors.credential && (
+            <p className='loginCredentialValidationError'style={{ color: "red" }}>{errors.credential}</p>
+          )}
       <form onSubmit={handleSubmit} id="logInModalFormContainer">
         <label className='loginModalLabel'>
           Username or Email
@@ -51,9 +54,6 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
-          <p style={{ color: "red" }}>{errors.credential}</p>
-        )}
         <button className={(credential.length < 4 || password.length < 6) ? 'loginModalButton' : 'enabledLoginButton'} type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
         <button className='enabledLoginButton' onClick={() => {
           setCredential("Demo-lition");

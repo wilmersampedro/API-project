@@ -63,3 +63,7 @@
 .enabledLoginButton:hover {
   cursor: pointer;
 }
+
+.loginCredentialValidationError {
+  margin: 0;
+}
