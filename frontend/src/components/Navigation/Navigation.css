@@ -1,3 +1,118 @@
 .hidden{
   display: none;
 }
+
+#profileButtonNav:hover {
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  list-style: none;
+  position: absolute;
+  right: 75px;
+  background-color: white;
+  padding-left: 0;
+  margin-top: 10px;
+  width: 160px;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
+#navbar{
+  display: flex;
+  /* flex-direction: row-reverse; */
+  justify-content: space-between;
+  margin: 20px 40px;
+  /* border-bottom: 1px solid lightgray;
+  padding-bottom: 20px; */
+}
+
+#navbar > li {
+  list-style-type: none;
+}
+
+#profileButton {
+  margin-right: 30px;
+}
+
+#right-side-nav {
+  display: flex;
+  gap: 30px;
+  list-style-type: none;
+  align-items: flex-end;
+}
+
+#create-a-spot-li {
+  align-self: flex-end;
+
+}
+
+#createSpotLink {
+  text-decoration: none;
+  color: rgb(5, 109, 109);
+  font-size: 18px;
+}
+
+#manageSpotsLink {
+  text-decoration: none;
+  color: black;
+  margin-left: 15px;
+  padding-bottom: 5px;
+}
+
+#profileButtonDropDownLoggedOut {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+#profileButtonDropDownLoggedOut>*:hover{
+  cursor: pointer;
+}
+
+#profileButtonDropDownLoggedIn{
+  display: flex;
+  flex-direction: column;
+  /* margin-left: 15px; */
+  justify-content: space-evenly;
+  height: 130px;
+}
+
+#profileButtonDropDownEmail{
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+
+.profileDropMenuItemsLoggedIn{
+  margin-left: 15px;
+  margin-top: 3px;
+  margin-bottom: 4px;
+}
+
+#manageSpotContainerDropDown{
+  border-bottom: 2px solid black;
+  padding-top: 3px;
+  padding-bottom: 5px;
+}
+
+#logoutButtonDropDownMenuLi{
+  align-self: center;
+  padding: 5px;
+  /* justify-self: center; */
+}
+
+#logoutButtonDropDownMenu{
+  height: 40px;
+  width: 90px;
+  background-color: rgb(105, 105, 105);
+  color: white;
+  border: 2px solid black;
+  border-radius: 30px;
+}
+
+#logoutButtonDropDownMenu:hover{
+  cursor: pointer;
+}
+
+.logo{
+  font-size: 36px;
+}

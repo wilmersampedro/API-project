@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginFormModal.css';
 
+
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
@@ -27,33 +28,39 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div id='loginModalMainContainer'>
+      <h1 id='loginModalHeader'>Log In</h1>
+          {errors.credential && (
+            <p className='loginCredentialValidationError'style={{ color: "red" }}>{errors.credential}</p>
+          )}
+      <form onSubmit={handleSubmit} id="logInModalFormContainer">
+        <label className='loginModalLabel'>
           Username or Email
           <input
+            className='loginModalInputField'
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
-        <label>
+        <label className='loginModalLabel'>
           Password
           <input
+            className='loginModalInputField'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
+        <button className={(credential.length < 4 || password.length < 6) ? 'loginModalButton' : 'enabledLoginButton'} type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
+        <button className='enabledLoginButton' onClick={() => {
+          setCredential("Demo-lition");
+          setPassword("password")
+        }}>Log in as Demo User</button>
       </form>
-    </>
+    </div>
   );
 }
 
