@@ -37,7 +37,7 @@ function PostReviewModal ({spotId, setRendered}) {
     }
     closeModal()
     setRendered(true)
-    
+
     dispatch(thunkGetReviewsBySpotId(spotId))
     // return newlyCreatedReview
   }
@@ -56,19 +56,19 @@ function PostReviewModal ({spotId, setRendered}) {
         />
       </label>
       <div id="stars-container" onMouseLeave={() => {setActiveRating(rating)}}>
-        <div value={1} onClick={() => onChange(1)} onMouseEnter={() => setActiveRating(1)} className={rating >= 1 ? 'filled' : 'empty'}>
+        <div value={1} onClick={() => onChange(1)} onMouseEnter={() => setActiveRating(1)} className={activeRating >= 1 ? 'filled' : 'empty'}>
         <i className="fa-solid fa-star"></i>
         </div>
-        <div value={2} onClick={() => onChange(2)} onMouseEnter={() => setActiveRating(2)} className={rating >= 2 ? 'filled' : 'empty'}>
+        <div value={2} onClick={() => onChange(2)} onMouseEnter={() => setActiveRating(2)} className={activeRating >= 2 ? 'filled' : 'empty'}>
           <i className="fa-solid fa-star"></i>
         </div>
-        <div value={3} onClick={() => onChange(3)} onMouseEnter={() => setActiveRating(3)} className={rating >= 3 ? 'filled' : 'empty'}>
+        <div value={3} onClick={() => onChange(3)} onMouseEnter={() => setActiveRating(3)} className={activeRating >= 3 ? 'filled' : 'empty'}>
           <i className="fa-solid fa-star"></i>
         </div>
-        <div value={4} onClick={() => onChange(4)} onMouseEnter={() => setActiveRating(4)} className={rating >= 4 ? 'filled' : 'empty'}>
+        <div value={4} onClick={() => onChange(4)} onMouseEnter={() => setActiveRating(4)} className={activeRating >= 4 ? 'filled' : 'empty'}>
           <i className="fa-solid fa-star"></i>
         </div>
-        <div value={5} onClick={() => onChange(5)} onMouseEnter={() => setActiveRating(5)} className={rating >= 5 ? 'filled' : 'empty'}>
+        <div value={5} onClick={() => onChange(5)} onMouseEnter={() => setActiveRating(5)} className={activeRating >= 5 ? 'filled' : 'empty'}>
           <i className="fa-solid fa-star"></i>
         </div>
 
