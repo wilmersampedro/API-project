@@ -44,6 +44,10 @@
   color: gold
 }
 
+.filled:hover{
+  cursor: pointer;
+}
+
 .empty {
   color: black
 }

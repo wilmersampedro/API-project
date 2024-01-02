@@ -184,3 +184,7 @@ font-size: 25px;
   padding: 5px 10px;
   box-shadow: 3px 3px black;
 }
+
+#submit-create-spot:hover{
+  cursor: pointer;
+}
