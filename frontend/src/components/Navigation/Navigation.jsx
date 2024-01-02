@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
   return (
     <ul id='navbar'>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/"><i className="fa-solid fa-won-sign logo" style={{ color: "red" }}></i></NavLink>
       </li>
       {isLoaded && (
         <div id='right-side-nav'>
